@@ -2,6 +2,10 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+function ciao() {
+  console.log("ciao");
+}
+
 function App() {
   function test() {
     console.log('prova')
@@ -9,10 +13,7 @@ function App() {
 
   return (
     <div>
-
-      <span>ciao</span>
-        
-      ciao
+      <span>primoBranch</span>
     </div>
   );
 }
