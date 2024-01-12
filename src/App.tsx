@@ -8,14 +8,10 @@ function ciao() {
 
 function App() {
   function test() {
-    console.log('prova')
+    console.log("prova");
   }
 
-  return (
-    <div>
-      <span>primoBranch</span>
-    </div>
-  );
+  return ciao;
 }
 
 export default App;
