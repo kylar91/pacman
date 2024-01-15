@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import PacMan from "./component/PacMan";
 
@@ -136,17 +136,43 @@ function level(): any {
 }
 
 function App() {
+  const [score, setScore] = useState(0)
   const { field } = level();
 
   return (
     <div className="game-container">
-      {field.map((col: number[], colIndex: number) => (
-        <div key={colIndex} className="col">
-          {col.map((cell: number, colIndex: number) => (
-            <div key={colIndex} className={`cell cell-${cell}`} />
-          ))}
+      <header>
+        <h1>PAC-MAN</h1>
+        <div className="info">
+          <div>
+            <p>1 UP</p>
+          </div>
+          <div>
+            <p>SCORE: <span>{score}</span></p>
+          </div>
         </div>
-      ))}
+      </header>
+      <div className="game">
+        {field.map((col: number[], colIndex: number) => (
+          <div key={colIndex} className="col">
+            {col.map((cell: number, colIndex: number) => {
+              if (cell === 1) {
+                return (
+                  <div className={`cell`}>
+                    <div key={colIndex} className={`cell-${cell}`}></div>
+                  </div>)
+              }
+              if (cell === 2) {
+                return (
+                  <div className={`cell`}>
+                    <div key={colIndex} className={`cell-${cell}`}></div>
+                  </div>)
+              }
+              return <div key={colIndex} className={`cell cell-${cell}`} />
+            })}
+          </div>
+        ))}
+      </div>
 
       <PacMan field={field} startPosition={{ row: 25, col: 15 }} />
     </div>
