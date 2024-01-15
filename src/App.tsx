@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import PacMan from "./component/PacMan";
 
 function level(): any {
   const field = [
@@ -56,7 +57,7 @@ function level(): any {
       8, 8, 8,
     ],
     [
-      4, 4, 4, 4, 4, 4, 1, 4, 4, 1, 4, 5, 5, 5, 5, 5, 5, 4, 0, 4, 4, 1, 4, 4, 4,
+      4, 4, 4, 4, 4, 4, 1, 4, 4, 0, 4, 5, 5, 5, 5, 5, 5, 4, 0, 4, 4, 1, 4, 4, 4,
       4, 4, 4,
     ],
     [
@@ -128,12 +129,32 @@ function level(): any {
       4, 4, 4,
     ],
   ];
+  const numRows = field.length;
+  const numCols = field[0].length;
 
-  return field;
+  return {
+    field,
+    numRows,
+    numCols,
+  };
 }
 
 function App() {
-  return <div></div>;
+  const { field, numRows, numCols } = level();
+
+  return (
+    <div className="game-container">
+      {field.map((col: number[], colIndex: number) => (
+        <div key={colIndex} className="col">
+          {col.map((cell: number, colIndex: number) => (
+            <div key={colIndex} className={`cell cell-${cell}`} />
+          ))}
+        </div>
+      ))}
+
+      <PacMan field={field} numRows={numRows} numCols={numCols} />
+    </div>
+  );
 }
 
 export default App;

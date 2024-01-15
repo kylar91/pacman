@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 
 type Props = {
-  level: [];
+  field: number[][];
+  numRows: number;
+  numCols: number;
 };
 
-const PacMan: React.FC<Props> = ({ level }) => {
+const PacMan: React.FC<Props> = ({ field }) => {
   const [position, setPosition] = useState({ row: 23, col: 13 });
 
   const isValidMove = (row: number, col: number) => {
-    if (level[row][col] !== 4) {
+    if (field[row][col] !== 4) {
       return true;
     }
     return false;
@@ -43,9 +45,13 @@ const PacMan: React.FC<Props> = ({ level }) => {
   useEffect(() => window.addEventListener("keydown", handlePress as any), []);
 
   return (
-    <>
-      <div className="pacman"> O </div>
-    </>
+    <div
+      className="pacman"
+      style={{
+        gridRow: position.row + 1,
+        gridColumn: position.col + 1,
+      }}
+    ></div>
   );
 };
 
