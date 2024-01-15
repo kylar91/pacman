@@ -129,18 +129,14 @@ function level(): any {
       4, 4, 4,
     ],
   ];
-  const numRows = field.length;
-  const numCols = field[0].length;
 
   return {
     field,
-    numRows,
-    numCols,
   };
 }
 
 function App() {
-  const { field, numRows, numCols } = level();
+  const { field } = level();
 
   return (
     <div className="game-container">
@@ -152,7 +148,7 @@ function App() {
         </div>
       ))}
 
-      <PacMan field={field} numRows={numRows} numCols={numCols} />
+      <PacMan field={field} startPosition={{ row: 25, col: 15 }} />
     </div>
   );
 }

@@ -1,28 +1,28 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type Props = {
   field: number[][];
-  numRows: number;
-  numCols: number;
+  startPosition: { row: number; col: number };
 };
 
-const PacMan: React.FC<Props> = ({ field }) => {
-  const [position, setPosition] = useState({ row: 23, col: 13 });
+const PacMan: React.FC<Props> = ({ field, startPosition }) => {
+  const [position, setPosition] = useState({
+    row: startPosition.row,
+    col: startPosition.col,
+  });
 
-  const isValidMove = (row: number, col: number) => {
-    if (field[row][col] !== 4) {
-      return true;
+  const isValidMove = (row: number, col: number) => field[row][col] !== 4;
+
+  const move = (rowDirection: number, colDirection: number) => {
+    let newRow = position.row + rowDirection;
+    let newCol = position.col + colDirection;
+
+    while (isValidMove(newRow, newCol)) {
+      newRow += rowDirection;
+      newCol += colDirection;
     }
-    return false;
-  };
 
-  const move = (row: number, col: number) => {
-    const newRow = position.row + row;
-    const newCol = position.col + col;
-
-    if (isValidMove(newRow, newCol)) {
-      setPosition({ row: newRow, col: newCol });
-    }
+    setPosition({ row: newRow - rowDirection, col: newCol - colDirection });
   };
 
   const handlePress = (event: React.KeyboardEvent) => {
@@ -42,14 +42,15 @@ const PacMan: React.FC<Props> = ({ field }) => {
     }
   };
 
-  useEffect(() => window.addEventListener("keydown", handlePress as any), []);
+  useEffect(() => window.addEventListener("keydown", handlePress as never), []);
 
   return (
     <div
       className="pacman"
       style={{
-        gridRow: position.row + 1,
-        gridColumn: position.col + 1,
+        position: "absolute",
+        top: position.row * 20 + "px",
+        left: position.col * 20 + "px",
       }}
     ></div>
   );
