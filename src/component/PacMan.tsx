@@ -47,11 +47,6 @@ const PacMan: React.FC<Props> = ({ field, startPosition }) => {
   return (
     <div
       className="pacman"
-      style={{
-        position: "absolute",
-        top: position.row * 20 + "px",
-        left: position.col * 20 + "px",
-      }}
     ></div>
   );
 };

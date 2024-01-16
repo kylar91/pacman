@@ -97,7 +97,7 @@ function level(): any {
       4, 1, 4,
     ],
     [
-      4, 2, 1, 1, 4, 4, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 4, 4, 1,
+      4, 2, 1, 1, 4, 4, 1, 1, 1, 1, 1, 1, 1, 7, 0, 1, 1, 1, 1, 1, 1, 1, 4, 4, 1,
       1, 2, 4,
     ],
     [
@@ -168,13 +168,17 @@ function App() {
                     <div key={colIndex} className={`cell-${cell}`}></div>
                   </div>)
               }
+              if (cell === 7) {
+                return (
+                  <div className={`cell`}>
+                    <PacMan field={field} startPosition={{ row: 25, col: 15 }} />
+                  </div>)
+              }
               return <div key={colIndex} className={`cell cell-${cell}`} />
             })}
           </div>
         ))}
       </div>
-
-      <PacMan field={field} startPosition={{ row: 25, col: 15 }} />
     </div>
   );
 }
