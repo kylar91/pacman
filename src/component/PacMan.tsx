@@ -1,54 +1,79 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 type Props = {
   field: number[][];
-  startPosition: { row: number; col: number };
+  setField: React.Dispatch<React.SetStateAction<number[][]>>;
+  position: { row: number; col: number };
+  setPosition: React.Dispatch<
+    React.SetStateAction<{
+      row: number;
+      col: number;
+    }>
+  >;
 };
 
-const PacMan: React.FC<Props> = ({ field, startPosition }) => {
-  const [position, setPosition] = useState({
-    row: startPosition.row,
-    col: startPosition.col,
-  });
+const PacMan: React.FC<Props> = ({
+  field,
+  setField,
+  setPosition,
+  position,
+}) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    e.preventDefault();
 
-  const isValidMove = (row: number, col: number) => field[row][col] !== 4;
+    // Calcola la nuova posizione in base alla direzione della freccia premuta
+    let newRow = position.row;
+    let newCol = position.col;
 
-  const move = (rowDirection: number, colDirection: number) => {
-    let newRow = position.row + rowDirection;
-    let newCol = position.col + colDirection;
-
-    while (isValidMove(newRow, newCol)) {
-      newRow += rowDirection;
-      newCol += colDirection;
-    }
-
-    setPosition({ row: newRow - rowDirection, col: newCol - colDirection });
-  };
-
-  const handlePress = (event: React.KeyboardEvent) => {
-    switch (event.key) {
+    switch (e.key) {
       case "ArrowUp":
-        move(-1, 0);
+        newRow = Math.max(0, newRow - 1);
         break;
       case "ArrowDown":
-        move(1, 0);
+        newRow = Math.min(field.length - 1, newRow + 1);
         break;
       case "ArrowLeft":
-        move(0, -1);
+        newCol = Math.max(0, newCol - 1);
         break;
       case "ArrowRight":
-        move(0, 1);
+        newCol = Math.min(field[0].length - 1, newCol + 1);
         break;
+      default:
+        return;
+    }
+
+    // Verifica se la nuova posizione è valida (cella vuota)
+    if (field[newRow][newCol] !== 4) {
+      handlePacManMove(newRow, newCol);
     }
   };
 
-  useEffect(() => window.addEventListener("keydown", handlePress as never), []);
+  const handlePacManMove = (row: number, col: number) => {
+    // Crea una copia della matrice field per garantire l'immutabilità dello stato
+    const newField = [...field];
 
-  return (
-    <div
-      className="pacman"
-    ></div>
-  );
+    // Imposta la vecchia posizione di PacMan a 0
+    newField[position.row][position.col] = 0;
+
+    // Imposta la nuova posizione di PacMan a 7
+    newField[row][col] = 7;
+
+    // Aggiorna lo stato con la nuova matrice field e la nuova posizione di PacMan
+    setField(newField);
+    setPosition({ row: row, col: col });
+  };
+
+  useEffect(() => {
+    // Aggiungi un listener per i tasti freccia quando la componente viene montata
+    window.addEventListener("keydown", handleKeyDown as never);
+
+    // Pulisci il listener quando la componente viene smontata
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown as never);
+    };
+  }, [position]);
+
+  return <div className="pacman"></div>;
 };
 
 export default PacMan;
