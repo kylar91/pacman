@@ -156,6 +156,8 @@ const Field = () => {
 
   const [field, setField] = useState(initialField);
   const [pacManPosition, setPacManPosition] = useState({ row: 23, col: 14 });
+  const [animation, setAnimation] = useState(false)
+  const [direction, setDirection] = useState('ArrowLeft')
 
   return (
     <div className="game">
@@ -184,6 +186,10 @@ const Field = () => {
                     setField={setField}
                     position={pacManPosition}
                     setPosition={setPacManPosition}
+                    direction={direction}
+                    setDirection={setDirection}
+                    animation={animation}
+                    setAnimation={setAnimation}
                   />
                 </div>
               );

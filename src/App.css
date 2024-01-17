@@ -32,40 +32,124 @@ span {
 
 .pacman {
     background-image: url('img/css-sprite-PacMan.png');
-    background-position: -34px -0px;
+    background-position: -18px -0px;
     width: 15px;
     height: 15px;
     background-repeat: no-repeat;
-    transform: scale(1.8);
-    animation: Animation 1.2s steps(1) infinite;
 }
 
-@keyframes Animation {
+@keyframes Animation-ArrowUp {
     0% {
         background-position: -34px -0px;
+        transform: scale(1.8) translateY(0px) rotate(270deg);
     }
 
     25% {
         background-position: -18px -0px;
+        transform: scale(1.8) translateY(-4px) rotate(270deg);
     }
 
     50% {
         background-position: -1px -0px;
+        transform: scale(1.8) translateY(-8px) rotate(270deg);
     }
 
     75% {
         background-position: -18px -0px;
+        transform: scale(1.8) translateY(-12px) rotate(270deg);
     }
 
     100% {
         background-position: -34px -0px;
+        transform: scale(1.8) translateY(-16px) rotate(270deg);
+    }
+}
+
+@keyframes Animation-ArrowDown {
+    0% {
+        background-position: -34px -0px;
+        transform: scale(1.8) translateY(0px) rotate(90deg);
+    }
+
+    25% {
+        background-position: -18px -0px;
+        transform: scale(1.8) translateY(4px) rotate(90deg);
+    }
+
+    50% {
+        background-position: -1px -0px;
+        transform: scale(1.8) translateY(8px) rotate(90deg);
+    }
+
+    75% {
+        background-position: -18px -0px;
+        transform: scale(1.8) translateY(12px) rotate(90deg);
+    }
+
+    100% {
+        background-position: -34px -0px;
+        transform: scale(1.8) translateY(16px) rotate(90deg);
+    }
+}
+
+@keyframes Animation-ArrowLeft {
+    0% {
+        background-position: -34px -0px;
+        transform: scale(1.8) translateX(0px) rotate(180deg);
+    }
+
+    25% {
+        background-position: -18px -0px;
+        transform: scale(1.8) translateX(-4px) rotate(180deg);
+    }
+
+    50% {
+        background-position: -1px -0px;
+        transform: scale(1.8) translateX(-8px) rotate(180deg);
+    }
+
+    75% {
+        background-position: -18px -0px;
+        transform: scale(1.8) translateX(-12px) rotate(180deg);
+    }
+
+    100% {
+        background-position: -34px -0px;
+        transform: scale(1.8) translateX(-16px) rotate(180deg);
+    }
+}
+
+@keyframes Animation-ArrowRight {
+    0% {
+        background-position: -34px -0px;
+        transform: scale(1.8) translateX(0px);
+    }
+
+    25% {
+        background-position: -18px -0px;
+        transform: scale(1.8) translateX(4px);
+    }
+
+    50% {
+        background-position: -1px -0px;
+        transform: scale(1.8) translateX(8px);
+    }
+
+    75% {
+        background-position: -18px -0px;
+        transform: scale(1.8) translateX(12px);
+    }
+
+    100% {
+        background-position: -34px -0px;
+        transform: scale(1.8) translateX(16px);
     }
 }
 
 .cell {
     width: 20px;
     height: 20px;
-    border: 1px solid #8ae5e32c;
+    border: 1px solid #8ae5e31b;
     display: flex;
     justify-content: center;
     align-items: center;
