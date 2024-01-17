@@ -1,54 +1,70 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 type Props = {
   field: number[][];
-  startPosition: { row: number; col: number };
+  setField: React.Dispatch<React.SetStateAction<number[][]>>;
+  position: { row: number; col: number };
+  setPosition: React.Dispatch<
+    React.SetStateAction<{
+      row: number;
+      col: number;
+    }>
+  >;
 };
 
-const PacMan: React.FC<Props> = ({ field, startPosition }) => {
-  const [position, setPosition] = useState({
-    row: startPosition.row,
-    col: startPosition.col,
-  });
+const PacMan: React.FC<Props> = ({
+  field,
+  setField,
+  setPosition,
+  position,
+}) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    e.preventDefault();
 
-  const isValidMove = (row: number, col: number) => field[row][col] !== 4;
+    let newRow = position.row;
+    let newCol = position.col;
 
-  const move = (rowDirection: number, colDirection: number) => {
-    let newRow = position.row + rowDirection;
-    let newCol = position.col + colDirection;
-
-    while (isValidMove(newRow, newCol)) {
-      newRow += rowDirection;
-      newCol += colDirection;
-    }
-
-    setPosition({ row: newRow - rowDirection, col: newCol - colDirection });
-  };
-
-  const handlePress = (event: React.KeyboardEvent) => {
-    switch (event.key) {
+    switch (e.key) {
       case "ArrowUp":
-        move(-1, 0);
+        newRow -= 1;
         break;
       case "ArrowDown":
-        move(1, 0);
+        newRow += 1;
         break;
       case "ArrowLeft":
-        move(0, -1);
+        newCol -= 1;
         break;
       case "ArrowRight":
-        move(0, 1);
+        newCol += 1;
         break;
+      default:
+        return;
+    }
+
+    if (field[newRow][newCol] !== 4) {
+      handlePacManMove(newRow, newCol);
     }
   };
 
-  useEffect(() => window.addEventListener("keydown", handlePress as never), []);
+  const handlePacManMove = (row: number, col: number) => {
+    const newField = [...field];
+    newField[position.row][position.col] = 0;
 
-  return (
-    <div
-      className="pacman"
-    ></div>
-  );
+    newField[row][col] = 7;
+
+    setField(newField);
+    setPosition({ row: row, col: col });
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown as never);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown as never);
+    };
+  }, [position]);
+
+  return <div className="pacman"></div>;
 };
 
 export default PacMan;
