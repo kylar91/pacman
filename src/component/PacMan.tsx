@@ -28,7 +28,8 @@ const PacMan: React.FC<Props> = ({
 }) => {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     e.preventDefault();
-
+    let oldRow = position.row;
+    let oldCol = position.col;
     let newRow = position.row;
     let newCol = position.col;
 
@@ -49,10 +50,16 @@ const PacMan: React.FC<Props> = ({
         return;
     }
 
-    movePacMan(newRow, newCol, e.key);
+    movePacMan(newRow, newCol, e.key, oldRow, oldCol);
   };
 
-  const movePacMan = (row: number, col: number, direction: string) => {
+  const movePacMan = (
+    row: number,
+    col: number,
+    direction: string,
+    correntRow: number,
+    correntCol: number
+  ) => {
     const isValidMove = () => {
       return field[row][col] !== 4;
     };
@@ -60,8 +67,28 @@ const PacMan: React.FC<Props> = ({
     const move = () => {
       if (isValidMove()) {
         setDirection(direction);
-        handlePacManMove(row, col);
         setAnimation(true);
+
+        // Salva la posizione corrente
+        const oldRow = correntRow;
+        const oldCol = correntCol;
+
+        setTimeout(() => {
+          setField((prevField) => {
+            const newField = prevField.map((row) => [...row]);
+
+            // Pulisce la vecchia posizione di Pac-Man
+            newField[oldRow][oldCol] = 0;
+
+            // Imposta la nuova posizione di Pac-Man
+            newField[row][col] = 7;
+
+            return newField;
+          });
+
+          setPosition({ row: row, col: col });
+          setAnimation(false);
+        }, 200);
 
         // Prossima posizione
         let newRow = row;
@@ -86,7 +113,7 @@ const PacMan: React.FC<Props> = ({
 
         if (isValidMove()) {
           setTimeout(() => {
-            movePacMan(newRow, newCol, direction);
+            movePacMan(newRow, newCol, direction, row, col);
           }, 200);
         } else {
           setAnimation(false);
@@ -95,18 +122,6 @@ const PacMan: React.FC<Props> = ({
     };
 
     move();
-  };
-
-  const handlePacManMove = (row: number, col: number) => {
-    setTimeout(() => {
-      const newField = [...field];
-      newField[position.row][position.col] = 0;
-      setPosition({ row: row, col: col });
-      newField[row][col] = 7;
-      setField(newField);
-      console.log(field);
-      setAnimation(false);
-    }, 200);
   };
 
   useEffect(() => {
