@@ -115,7 +115,7 @@ const PacMan: React.FC<Props> = ({
     return () => {
       window.removeEventListener("keydown", handleKeyDown as never);
     };
-  }, []);
+  }, [handleKeyDown]);
 
   return (
     <div
