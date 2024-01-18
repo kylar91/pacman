@@ -88,7 +88,7 @@ const PacMan: React.FC<Props> = ({
 
           setPosition({ row: row, col: col });
           setAnimation(false);
-        }, 200);
+        }, 190);
 
         // Prossima posizione
         let newRow = row;
@@ -114,7 +114,7 @@ const PacMan: React.FC<Props> = ({
         if (isValidMove()) {
           setTimeout(() => {
             movePacMan(newRow, newCol, direction, row, col);
-          }, 200);
+          }, 190);
         } else {
           setAnimation(false);
         }
