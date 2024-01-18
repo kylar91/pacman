@@ -30,6 +30,7 @@ span {
     position: absolute;
 }
 
+/*animation pacman*/
 .pacman {
     background-image: url('img/css-sprite-PacMan.png');
     background-position: -18px -0px;
@@ -146,6 +147,61 @@ span {
     }
 }
 
+/*animation blinky*/
+.blinky {
+    background-image: url('img/css-sprite-PacMan.png');
+    background-position: -34px -65px;
+    width: 15px;
+    height: 15px;
+    background-repeat: no-repeat;
+    transform: scale(1.8);
+    animation: Animation-Stopped 0.2s steps(1) infinite;
+}
+
+@keyframes Animation-Stopped {
+    0% {
+        background-position: -34px -65px;
+        transform: scale(1.8);
+    }
+
+    100% {
+        background-position: -50px -65px;
+        transform: scale(1.8);
+    }
+}
+
+/*animation inky*/
+.inky {
+    background-image: url('img/css-sprite-PacMan.png');
+    background-position: -34px -96px;
+    width: 15px;
+    height: 15px;
+    background-repeat: no-repeat;
+    transform: scale(1.8)
+}
+
+/*animation pinky*/
+.pinky {
+    background-image: url('img/css-sprite-PacMan.png');
+    background-position: -34px -80px;
+    width: 15px;
+    height: 15px;
+    background-repeat: no-repeat;
+    transform: scale(1.8)
+}
+
+/*animation clyde*/
+.clyde {
+    background-image: url('img/css-sprite-PacMan.png');
+    background-position: -34px -112px;
+    width: 15px;
+    height: 15px;
+    background-repeat: no-repeat;
+    transform: scale(1.8)
+}
+
+
+/*field*/
 .cell {
     width: 20px;
     height: 20px;

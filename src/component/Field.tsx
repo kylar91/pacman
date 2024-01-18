@@ -1,5 +1,9 @@
 import { useState } from "react";
 import PacMan from "./PacMan";
+import Blinky from "./Blinky";
+import Pinky from "./Pinky";
+import Inky from "./Inky";
+import Clyde from "./Clyde";
 
 const Field = () => {
   const initialField = [
@@ -60,7 +64,7 @@ const Field = () => {
     ],
     //11
     [
-      8, 8, 8, 8, 8, 4, 1, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 1, 4, 8, 8,
+      8, 8, 8, 8, 8, 4, 1, 4, 4, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 4, 4, 1, 4, 8, 8,
       8, 8, 8,
     ],
     //12
@@ -70,17 +74,17 @@ const Field = () => {
     ],
     //13
     [
-      4, 4, 4, 4, 4, 4, 1, 4, 4, 0, 4, 5, 5, 5, 5, 5, 5, 4, 0, 4, 4, 1, 4, 4, 4,
+      4, 4, 4, 4, 4, 4, 1, 4, 4, 0, 4, 4, 4, 5, 5, 4, 4, 4, 0, 4, 4, 1, 4, 4, 4,
       4, 4, 4,
     ],
     //14
     [
-      0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 5, 5, 5, 5, 5, 5, 4, 0, 0, 0, 1, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 4, 10, 11, 5, 12, 4, 4, 0, 0, 0, 1, 0, 0, 0,
       0, 0, 0,
     ],
     //15
     [
-      4, 4, 4, 4, 4, 4, 1, 4, 4, 0, 4, 5, 5, 5, 5, 5, 5, 4, 0, 4, 4, 1, 4, 4, 4,
+      4, 4, 4, 4, 4, 4, 1, 4, 4, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 1, 4, 4, 4,
       4, 4, 4,
     ],
     //16
@@ -190,6 +194,46 @@ const Field = () => {
                     setDirection={setDirection}
                     animation={animation}
                     setAnimation={setAnimation}
+                  />
+                </div>
+              );
+            }
+            if (cell === 13) {
+              return (
+                <div className={`cell`}>
+                  <Blinky
+                    field={field}
+                    setField={setField}
+                  />
+                </div>
+              );
+            }
+            if (cell === 10) {
+              return (
+                <div className={`cell`}>
+                  <Inky
+                    field={field}
+                    setField={setField}
+                  />
+                </div>
+              );
+            }
+            if (cell === 11) {
+              return (
+                <div className={`cell`}>
+                  <Pinky
+                    field={field}
+                    setField={setField}
+                  />
+                </div>
+              );
+            }
+            if (cell === 12) {
+              return (
+                <div className={`cell`}>
+                  <Clyde
+                    field={field}
+                    setField={setField}
                   />
                 </div>
               );
